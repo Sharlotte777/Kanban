@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "373220394072",
+    "project_id": "ratedkanban",
+    "storage_bucket": "ratedkanban.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373220394072:android:1c5edd511634a13668f62d",
+        "android_client_info": {
+          "package_name": "com.example.rated"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-GVFMjhirzxRAWSZUOvzBJHZeX-gJLFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373220394072:android:b8faeda9511866dc68f62d",
+        "android_client_info": {
+          "package_name": "com.example.ratedwork"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-GVFMjhirzxRAWSZUOvzBJHZeX-gJLFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,12 +38,12 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
         Column column = columns.get(position);
         holder.columnTitle.setText(column.getTitle());
 
-        // Настраиваем вертикальный RecyclerView для тикетов
+        // Настройка адаптера для тикетов
         TicketAdapter ticketAdapter = new TicketAdapter(viewModel);
         holder.ticketsRecycler.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.ticketsRecycler.setAdapter(ticketAdapter);
 
-        // Подписываемся на изменения тикетов и фильтруем по статусу
+        // Подписка на тикеты
         viewModel.getTickets().observe(lifecycleOwner, tickets -> {
             if (tickets == null) tickets = new ArrayList<>();
             List<Ticket> filtered = new ArrayList<>();
@@ -55,19 +55,17 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
             ticketAdapter.setTickets(filtered);
         });
 
-        // Устанавливаем DragListener на весь корневой элемент колонки
+        // Установка слушателя на колонку
         holder.itemView.setOnDragListener((v, event) -> {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    // Проверяем, что перетаскивается текст (наш тикет)
                     return event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN);
                 case DragEvent.ACTION_DROP:
-                    // Получаем перетаскиваемый объект тикета
                     Ticket draggedTicket = (Ticket) event.getLocalState();
                     if (draggedTicket != null && !column.getStatus().equals(draggedTicket.getStatus())) {
-                        // Перемещаем тикет в эту колонку (сохраняем позицию 0 или в конец)
+                        // Перемещаем тикет в новую колонку
                         draggedTicket.setStatus(column.getStatus());
-                        draggedTicket.setPosition(Integer.MAX_VALUE); // временно, реальную позицию установит репозиторий
+                        draggedTicket.setPosition(Integer.MAX_VALUE);
                         viewModel.updateTicket(draggedTicket);
                     }
                     return true;
@@ -85,7 +83,6 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
     static class ColumnViewHolder extends RecyclerView.ViewHolder {
         TextView columnTitle;
         RecyclerView ticketsRecycler;
-
         public ColumnViewHolder(@NonNull View itemView) {
             super(itemView);
             columnTitle = itemView.findViewById(R.id.columnTitle);

@@ -6,9 +6,7 @@ import database.AppDatabase;
 import database.TicketDao;
 import models.Ticket;
 import firebase.FirebaseSyncManager;
-
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

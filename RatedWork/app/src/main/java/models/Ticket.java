@@ -3,10 +3,12 @@ package models;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.io.Serializable;
 
 @Entity(tableName = "tickets")
-public class Ticket {
-    @PrimaryKey
+public class Ticket implements Serializable {
+@PrimaryKey
+
     @NonNull
     private String id;
     private String title;

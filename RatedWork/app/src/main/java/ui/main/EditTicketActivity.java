@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import models.Ticket;
 import utils.FileHelper;
-
 import com.example.ratedwork.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -43,7 +41,6 @@ public class EditTicketActivity extends AppCompatActivity {
 
         String ticketId = getIntent().getStringExtra("ticket_id");
         if (ticketId != null) {
-            // Упрощённо: передаём объект через Intent (требует Serializable)
             existingTicket = (Ticket) getIntent().getSerializableExtra("ticket");
             if (existingTicket != null) {
                 titleEdit.setText(existingTicket.getTitle());

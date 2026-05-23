@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import models.Ticket;
 import ui.main.MainViewModel;
 import utils.FileHelper;
-
 import com.example.ratedwork.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -27,7 +26,7 @@ public class EditTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_ticket);  // БЕЗ Build.VERSION_CODES_FULL
+        setContentView(R.layout.activity_edit_ticket);
 
         titleEdit = findViewById(R.id.editTitle);
         descriptionEdit = findViewById(R.id.editDescription);
@@ -40,8 +39,6 @@ public class EditTicketActivity extends AppCompatActivity {
 
         String ticketId = getIntent().getStringExtra("ticket_id");
         if (ticketId != null) {
-            // Загружаем существующий тикет из репозитория (упрощённо – через LiveData, но для простоты передаём объект)
-            // В реальном проекте лучше передавать через Intent сериализованный объект или ID и загружать из ViewModel
             existingTicket = (Ticket) getIntent().getSerializableExtra("ticket");
             if (existingTicket != null) {
                 titleEdit.setText(existingTicket.getTitle());

@@ -45,24 +45,22 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // При нажатии Enter тоже фильтруем
                 viewModel.filterTickets(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Фильтруем при изменении текста
                 viewModel.filterTickets(newText);
                 return true;
             }
         });
         searchView.setOnCloseListener(() -> {
-            viewModel.filterTickets("");  // Очистка фильтра
+            viewModel.filterTickets("");
             return false;
         });
 
-        // Для добавления тикета
+        // Кнопка добавления тикета
         FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, EditTicketActivity.class);
@@ -70,10 +68,19 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Кнопка "Доски"
         Button btnBoards = findViewById(R.id.btnBoards);
         btnBoards.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, BoardsActivity.class)));
+
+        // Кнопка "Пользователи"
         Button btnUsers = findViewById(R.id.btnUsers);
         btnUsers.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UsersActivity.class)));
+
+        // Кнопка "Настройки" (Telegram)
+        Button btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
+
+        // Кнопка "Обновить"
         Button btnRefresh = findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(v -> {
             swipeRefreshLayout.setRefreshing(true);

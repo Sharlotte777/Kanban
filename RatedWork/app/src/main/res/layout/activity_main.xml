@@ -65,6 +65,14 @@
             android:text="Обновить"
             android:drawableTop="@android:drawable/ic_menu_recent_history" />
 
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Настройки"
+            android:drawableTop="@android:drawable/ic_menu_preferences" />
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

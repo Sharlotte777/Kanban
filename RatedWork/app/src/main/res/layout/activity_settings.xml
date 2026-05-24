@@ -4,14 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telegram Notifications Setup"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Поле для User ID (исполнитель) -->
+    <EditText
+        android:id="@+id/userIdEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your User ID (assigneeId)"
+        android:inputType="text" />
+
+    <!-- Поле для Telegram Chat ID -->
     <EditText
         android:id="@+id/telegramChatId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your Telegram Chat ID" />
+        android:hint="Telegram Chat ID (число)"
+        android:inputType="number" />
+
     <Button
         android:id="@+id/saveChatIdButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Save Settings"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

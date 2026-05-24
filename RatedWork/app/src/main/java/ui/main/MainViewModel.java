@@ -36,11 +36,21 @@ public class MainViewModel extends AndroidViewModel {
     public void loadTickets(String boardId) {
         this.currentBoardId = boardId;
         allTickets = ticketRepository.getTicketsByBoard(boardId);
-        // Подписываемся на изменения всех тикетов, но обновляем displayTickets только если не в поиске
         allTickets.observeForever(tickets -> {
             if (!isSearchMode) displayTickets.setValue(tickets);
         });
         if (!isSearchMode) displayTickets.setValue(allTickets.getValue());
+    }
+
+    public void moveTicket(Ticket ticket, String newStatus, int newPosition) {
+        String oldStatus = ticket.getStatus();
+        ticket.setStatus(newStatus);
+        ticket.setPosition(newPosition);
+        updateTicket(ticket);
+        if (ticket.getAssigneeId() != null && !ticket.getAssigneeId().isEmpty()) {
+            String msg = "<b>" + ticket.getTitle() + "перемещён из " + oldStatus + " в " + newStatus;
+            TelegramHelper.sendNotification(getApplication(), ticket.getAssigneeId(), msg);
+        }
     }
 
     public LiveData<List<Ticket>> searchTickets(String query) {
@@ -58,7 +68,7 @@ public class MainViewModel extends AndroidViewModel {
         } else {
             isSearchMode = true;
             lastQuery = query;
-            // Выполняем поиск в репозитории (возвращает LiveData)
+            // Выполняем поиск в репозитории
             ticketRepository.searchTickets("%" + query + "%").observeForever(results -> {
                 displayTickets.setValue(results);
             });
@@ -72,12 +82,12 @@ public class MainViewModel extends AndroidViewModel {
 
     public void insertTicket(Ticket ticket) {
         ticketRepository.insertTicket(ticket);
-        if (isSearchMode) filterTickets(lastQuery);
+        notifyAssignee(ticket, "Новая задача создана");
     }
 
     public void updateTicket(Ticket ticket) {
         ticketRepository.updateTicket(ticket);
-        if (isSearchMode) filterTickets(lastQuery);
+        notifyAssignee(ticket, "Задача изменена");
     }
 
     public void deleteTicket(Ticket ticket) {
@@ -109,5 +119,14 @@ public class MainViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
         ticketRepository.stopSync();
+    }
+
+    private void notifyAssignee(Ticket ticket, String action) {
+        if (ticket.getAssigneeId() == null || ticket.getAssigneeId().isEmpty()) return;
+        String message = "" + ticket.getTitle() + "\n" +
+                action + "\n" +
+                "Статус: " + ticket.getStatus() + "\n" +
+                "Доска: " + ticket.getBoardId();
+        TelegramHelper.sendNotification(getApplication(), ticket.getAssigneeId(), message);
     }
 }

@@ -26,7 +26,7 @@ public class EditTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_ticket);  // БЕЗ Build.VERSION_CODES_FULL
+        setContentView(R.layout.activity_edit_ticket);
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 

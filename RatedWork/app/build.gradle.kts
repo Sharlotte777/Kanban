@@ -38,7 +38,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")  // совместим с API 14+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.5.2")

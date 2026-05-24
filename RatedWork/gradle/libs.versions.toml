@@ -14,6 +14,8 @@ roomCompiler = "2.8.4"
 firebaseStorage = "22.0.1"
 preference = "1.2.1"
 swiperefreshlayout = "1.2.0"
+monitor = "1.8.0"
+espressoCoreVersion = "3.5.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -30,6 +32,8 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

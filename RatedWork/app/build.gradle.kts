@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.ratedwork"
-        minSdk = 17
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -42,6 +42,9 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.ext.junit)
+    implementation(libs.monitor)
     implementation(libs.preference)
     annotationProcessor("androidx.room:room-compiler:2.5.2")
 
@@ -55,10 +58,14 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 }
 
 apply(plugin = "com.google.gms.google-services")

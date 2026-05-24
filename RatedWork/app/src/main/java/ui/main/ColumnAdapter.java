@@ -38,12 +38,11 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
         Column column = columns.get(position);
         holder.columnTitle.setText(column.getTitle());
 
-        // Настройка адаптера для тикетов
         TicketAdapter ticketAdapter = new TicketAdapter(viewModel);
         holder.ticketsRecycler.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.ticketsRecycler.setAdapter(ticketAdapter);
 
-        // Подписка на тикеты
+        // Наблюдаем за displayTickets
         viewModel.getTickets().observe(lifecycleOwner, tickets -> {
             if (tickets == null) tickets = new ArrayList<>();
             List<Ticket> filtered = new ArrayList<>();
@@ -55,7 +54,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
             ticketAdapter.setTickets(filtered);
         });
 
-        // Установка слушателя на колонку
+        // Drag-and-drop
         holder.itemView.setOnDragListener((v, event) -> {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
@@ -63,7 +62,6 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
                 case DragEvent.ACTION_DROP:
                     Ticket draggedTicket = (Ticket) event.getLocalState();
                     if (draggedTicket != null && !column.getStatus().equals(draggedTicket.getStatus())) {
-                        // Перемещаем тикет в новую колонку
                         draggedTicket.setStatus(column.getStatus());
                         draggedTicket.setPosition(Integer.MAX_VALUE);
                         viewModel.updateTicket(draggedTicket);
@@ -76,9 +74,7 @@ public class ColumnAdapter extends RecyclerView.Adapter<ColumnAdapter.ColumnView
     }
 
     @Override
-    public int getItemCount() {
-        return columns.size();
-    }
+    public int getItemCount() { return columns.size(); }
 
     static class ColumnViewHolder extends RecyclerView.ViewHolder {
         TextView columnTitle;

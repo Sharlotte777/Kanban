@@ -27,14 +27,25 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.searchTickets(query).observe(SearchActivity.this, adapter::setTickets);
+                // Выполняется при нажатии Enter
+                performSearch(query);
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewModel.searchTickets(newText).observe(SearchActivity.this, adapter::setTickets);
-                return true;
+                return false;
             }
         });
+    }
+
+    private void performSearch(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            adapter.setTickets(new java.util.ArrayList<>());
+        } else {
+            viewModel.searchTickets(query).observe(this, tickets -> {
+                adapter.setTickets(tickets);
+            });
+        }
     }
 }

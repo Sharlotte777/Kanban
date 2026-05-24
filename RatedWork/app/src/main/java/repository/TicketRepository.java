@@ -32,6 +32,11 @@ public class TicketRepository {
         return ticketDao.getTicketsByBoard(boardId);
     }
 
+    // Поиск
+    public LiveData<List<Ticket>> searchTickets(String query) {
+        return ticketDao.searchTickets(query); // query уже содержит %%
+    }
+
     public void insertTicket(Ticket ticket) {
         executor.execute(() -> {
             ticketDao.insert(ticket);
@@ -61,20 +66,16 @@ public class TicketRepository {
             copy.setDescription(original.getDescription());
             copy.setTags(original.getTags());
             copy.setAssigneeId(original.getAssigneeId());
+            copy.setBoardId(original.getBoardId());
             copy.setExternalLink(original.getExternalLink());
             copy.setAttachments(original.getAttachments());
-            copy.setBoardId(original.getBoardId());
-            copy.setPosition(original.getPosition() + 1);
             copy.setStatus(original.getStatus());
+            copy.setPosition(original.getPosition() + 1);
             copy.setCreatedAt(System.currentTimeMillis());
             copy.setUpdatedAt(System.currentTimeMillis());
             ticketDao.insert(copy);
             syncManager.pushTicket(copy);
         });
-    }
-
-    public LiveData<List<Ticket>> searchTickets(String query) {
-        return ticketDao.searchTickets("%" + query + "%");
     }
 
     public void stopSync() {

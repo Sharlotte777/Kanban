@@ -10,7 +10,8 @@ public interface TicketDao {
     @Query("SELECT * FROM tickets WHERE boardId = :boardId ORDER BY position")
     LiveData<List<Ticket>> getTicketsByBoard(String boardId);
 
-    @Query("SELECT * FROM tickets WHERE title LIKE :query OR description LIKE :query OR tags LIKE :query")
+    // Поиск по названию, описанию, тегам
+    @Query("SELECT * FROM tickets WHERE title LIKE :query OR description LIKE :query OR tags LIKE :query ORDER BY position")
     LiveData<List<Ticket>> searchTickets(String query);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

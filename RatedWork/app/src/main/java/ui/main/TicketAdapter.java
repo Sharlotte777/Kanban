@@ -55,7 +55,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             return true;
         });
 
-        // Обработка кликов: одинарный – редактирование, двойной – дублирование, тройной – удаление
+        // Обработка кликов: одинарный - редактирование, двойной - дублирование, тройной - удаление
         holder.cardView.setOnClickListener(v -> {
             clickCount++;
             if (clickRunnable != null) {
